@@ -1,0 +1,9 @@
+This program should compile on any version of gcc, but it was only tested on Linux and Mac OS X.
+
+syntax: chi2 -i [input] -o [output] -n [number of features to be selected] -c [base class]
+
+The input file format is arff (http://www.cs.waikato.ac.nz/~ml/weka/arff.html), used by Weka. Plans for any (but unlikely) future update are inclusion of other techniques (Information Gain, etc) and support of other file formats.
+
+There is a test file on 'test/0.arff ', and the 'make run' option should run this test against comp.sys
+
+TODO: update all comments on code to English
