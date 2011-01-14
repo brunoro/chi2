@@ -5,8 +5,9 @@ SRC = $(wildcard src/*.c)
 OBJS = $(SRC:.c=.o)
 MAIN = chi2 
 RUN_ARGS = -i test/0.arff -o /dev/stdout -c comp.sys -n 80 
+CHECKOS = `echo $(OSTYPE) | tr "." "\n" | grep darwin`
 
-ifeq ($(OSTYPE), darwin10.0)
+ifeq ($(CHECKOS), darwin10)
 	CFLAGS := -fnested-functions
 endif
 
