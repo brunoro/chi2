@@ -4,21 +4,14 @@ RM = rm -f
 SRC = $(wildcard src/*.c)
 OBJS = $(SRC:.c=.o)
 MAIN = chi2 
-RUN_ARGS = -i test/0.arff -o /dev/stdout -c comp.sys -n 80 
-CHECKOS = `echo $(OSTYPE) | tr "." "\n" | grep darwin`
-
-ifeq ($(CHECKOS), darwin10)
-	CFLAGS := -fnested-functions
-endif
+RUN_ARGS = -i test/0.arff -o /dev/stdout -c comp.sys -n 80
 
 all: $(MAIN)
 
 $(MAIN): $(OBJS)
-	@echo " :: linkando"
 	@$(CC) $(CFLAGS) $^ -o $@
 
 %.o: src/%.c
-	@echo " :: compilando \"$@\""
 	@$(CC) $(CFLAGS) $< -c
 
 clean:
