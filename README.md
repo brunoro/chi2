@@ -1,6 +1,6 @@
 Chi2
 ====
-A pure-C implementation of the chi2 feature selection (http://nlp.stanford.edu/IR-book/html/htmledition/feature-selectionchi2-feature-selection-1.html), quite used on text classification.
+A pure-C implementation of the [chi2 feature selection](http://nlp.stanford.edu/IR-book/html/htmledition/feature-selectionchi2-feature-selection-1.html), quite used on text classification.
 
 Compiling
 ---------
@@ -15,7 +15,7 @@ The program can be executed as:
 
     $ chi2 -i [input file] -o [output file] -n [number of features to be selected] -c [base class]
 
-The input file format is arff (http://www.cs.waikato.ac.nz/~ml/weka/arff.html), used by Weka. 
+The input file format is an [arff](http://www.cs.waikato.ac.nz/~ml/weka/arff.html) file, used by [Weka](www.cs.waikato.ac.nz/ml/weka/). 
 
 There is a test file on 'test/0.arff ', and the 'make run' option should run this test against "comp.sys" selecting 80 features.
 
