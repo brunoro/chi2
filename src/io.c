@@ -5,12 +5,13 @@ Param *io_getParameters(int argc, char **argv)
 {
     Param *para = (Param*)malloc(sizeof(Param));
     
+	para->sep = malloc(STRING_SIZE*sizeof(char));
     para->fileIn = malloc(STRING_SIZE*sizeof(char));
 	para->fileOut = malloc(STRING_SIZE*sizeof(char));
 	para->classif = malloc(STRING_SIZE*sizeof(char));
 
     int c;
-    while((c = getopt(argc, argv, "i:o:c:n:")) != -1)
+    while((c = getopt(argc, argv, "i:o:c:n:s:")) != -1)
     {
         switch(c)
         {
@@ -28,6 +29,10 @@ Param *io_getParameters(int argc, char **argv)
 
             case 'n':
                 para->nfeat = atoi(optarg);
+                break;
+            
+            case 's':
+                strcpy(para->sep, optarg);
                 break;
 			
             default:
@@ -65,14 +70,14 @@ bool io_isValidStr(char *str)
 }
 
 /* retorna pointer para ts, tsc, tam */
-Arff *io_readArff(char *filename, char *classif)
+Arff *io_readArff(char *filename, char *classif, char *sep)
 {
     FILE *fileIn = fopen(filename, "r");
 
 	char *line = malloc(LINE_SIZE * sizeof(char));
 	Arff *arff = (Arff*) malloc(sizeof(Arff));
 	arff->docs_size = 0; 
-	arff->feats    = -1; /* tem um attribute com o nome da classe */
+	arff->feats = -1; /* tem um attribute com o nome da classe */
 
     char *fim;
 	long attr_line = 0,
@@ -170,7 +175,7 @@ Arff *io_readArff(char *filename, char *classif)
 					wordset_insert(tmp, atoi(tok));
 			}
 			/* ve se classe está contida */
-			else if(io_isValidStr(tok) && io_isSubClass(classif, tok))
+			else if(io_isValidStr(tok) && io_isSubClass(classif, tok, sep))
 				wordset_setFromClass(tmp);
 
 			prim = !prim;
@@ -201,7 +206,7 @@ void io_fprintFeats(char *fileOut, char **featStr, Wordset *feats)
     fclose(out);
 }
 
-bool io_isSubClass(char *s1, char *s2)
+bool io_isSubClass(char *s1, char *s2, char* sep)
 {
     char *s1_  = (char*) malloc(sizeof(char) * STRING_SIZE),
          *s2_  = (char*) malloc(sizeof(char) * STRING_SIZE);
@@ -211,8 +216,8 @@ bool io_isSubClass(char *s1, char *s2)
          
     char *pnt1 = NULL,
          *pnt2 = NULL,
-         *tok1 = strtok_r(s1_, ".", &pnt1),
-         *tok2 = strtok_r(s2_, ".", &pnt2);
+         *tok1 = strtok_r(s1_, sep, &pnt1),
+         *tok2 = strtok_r(s2_, sep, &pnt2);
 
     while(tok1 != NULL)
     {
@@ -222,8 +227,8 @@ bool io_isSubClass(char *s1, char *s2)
         if((strcmp(tok1, tok2) != 0))
             return false;
 
-        tok1 = strtok_r(NULL, ".", &pnt1);
-        tok2 = strtok_r(NULL, ".", &pnt2);
+        tok1 = strtok_r(NULL, sep, &pnt1);
+        tok2 = strtok_r(NULL, sep, &pnt2);
     }
 
     free(s1_);

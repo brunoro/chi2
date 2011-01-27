@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     Param *para = io_getParameters(argc, argv);
 
     /* lê base de dados */
-    Arff *data = io_readArff(para->fileIn, para->classif);
+    Arff *data = io_readArff(para->fileIn, para->classif, para->sep);
 
     /* escolhe features usando seleção própria ou ranking externo */
     Wordset *feat;

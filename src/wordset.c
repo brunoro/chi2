@@ -127,7 +127,10 @@ Wordset *wordset_featureSelection(Wordset **docs, int docs_size, int ntermos, in
 
 	/* escreve no ranking */
 	for(i = 0; i < nfeats; i++)
-		wordset_insert(feats, ranking[i]);
+    {
+        if(pontos[ranking[i]] > 0)
+    		wordset_insert(feats, ranking[i]);
+    }
 
 	free(ranking);
 	free(pontos);

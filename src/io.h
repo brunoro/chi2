@@ -19,7 +19,8 @@ typedef struct Param
     int  nfeat;
     char *fileIn,
 	     *fileOut,
-	     *classif;
+	     *classif,
+         *sep;
 }Param;
 
 typedef struct Arff
@@ -41,10 +42,10 @@ bool io_isNumber(char *str);
 bool io_isValidStr(char *str);
 
 /* retorna pointer para ts, tsc, tam */
-Arff *io_readArff(char *filename, char *classif);
+Arff *io_readArff(char *filename, char *classif, char *sep);
 
 /* escreve features num arquivo */
 void io_fprintFeats(char *fileOut, char **featStr, Wordset *feats);
 
 /* verifica se uma classe é subclasse de outra : s1 C s2 */
-bool io_isSubClass(char *s1, char *s2);
+bool io_isSubClass(char *s1, char *s2, char *sep);

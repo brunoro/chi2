@@ -4,7 +4,7 @@ RM = rm -f
 SRC = $(wildcard src/*.c)
 OBJS = $(SRC:.c=.o)
 MAIN = chi2 
-RUN_ARGS = -i test/0.arff -o /dev/stdout -c comp.sys -n 80
+RUN_ARGS = -i test/0.arff -o /dev/stdout -c comp.sys -n 80 -s .
 
 all: $(MAIN)
 
