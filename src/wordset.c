@@ -125,7 +125,7 @@ Wordset *wordset_featureSelection(Wordset **docs, int docs_size, int ntermos, in
 		printf("%d \t %f\n", ranking[i], pontos[ranking[i]]);
     */
 
-	/* escreve no ranking */
+	/* escreve no ranking e evita termos de peso 0 */
 	for(i = 0; i < nfeats; i++)
     {
         if(pontos[ranking[i]] > 0)

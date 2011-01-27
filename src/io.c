@@ -61,8 +61,8 @@ bool io_isValidStr(char *str)
 	int p = 0;
 	while(str[p] != '\0')
 	{
-        /* só vale a-z e ponto*/;
-		if(!( ((str[p] >= 65) && (str[p] <= 122)) || (str[p] == 46) ))
+        /* only a-z, dot and underscore */;
+		if(!( ((str[p] >= 65) && (str[p] <= 122)) || (str[p] == 46) || (str[p] == 95)))
 			return false;
 		p++;
 	}
@@ -175,8 +175,10 @@ Arff *io_readArff(char *filename, char *classif, char *sep)
 					wordset_insert(tmp, atoi(tok));
 			}
 			/* ve se classe está contida */
-			else if(io_isValidStr(tok) && io_isSubClass(classif, tok, sep))
+			else if(io_isSubClass(classif, tok, sep))
+            {
 				wordset_setFromClass(tmp);
+            }
 
 			prim = !prim;
 			tok = strtok_r(NULL, "{, }", &pnt);
@@ -206,13 +208,13 @@ void io_fprintFeats(char *fileOut, char **featStr, Wordset *feats)
     fclose(out);
 }
 
-bool io_isSubClass(char *s1, char *s2, char* sep)
+bool io_isSubClass(char *s1, char *s2, char *sep)
 {
     char *s1_  = (char*) malloc(sizeof(char) * STRING_SIZE),
          *s2_  = (char*) malloc(sizeof(char) * STRING_SIZE);
 
-         strncpy(s1_, s1, STRING_SIZE);
-         strncpy(s2_, s2, STRING_SIZE);
+    strncpy(s1_, s1, STRING_SIZE);
+    strncpy(s2_, s2, STRING_SIZE);
          
     char *pnt1 = NULL,
          *pnt2 = NULL,
