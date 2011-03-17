@@ -30,9 +30,5 @@ int wordset_size(Wordset *ws);
 void wordset_sort(Wordset *ws);
 int cmp(const void *a, const void *b);
 
-/* feature selection */
-Wordset *wordset_featureSelection(Wordset **docs, int docs_size, int ntermos, int nfeats);
-double* chiSquared(Wordset **docs, int numDocs, int numTermos);
-
 /* etc e debug */
 void wordset_print(Wordset *ws);

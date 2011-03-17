@@ -9,9 +9,10 @@ Param *io_getParameters(int argc, char **argv)
     para->fileIn = malloc(STRING_SIZE*sizeof(char));
 	para->fileOut = malloc(STRING_SIZE*sizeof(char));
 	para->classif = malloc(STRING_SIZE*sizeof(char));
+    para->rank = false;
 
     int c;
-    while((c = getopt(argc, argv, "i:o:c:n:s:")) != -1)
+    while((c = getopt(argc, argv, "i:o:c:n:s:r")) != -1)
     {
         switch(c)
         {
@@ -34,9 +35,13 @@ Param *io_getParameters(int argc, char **argv)
             case 's':
                 strcpy(para->sep, optarg);
                 break;
-			
+
+            case 'r':
+                para->rank = true;
+                break;
+
             default:
-                printf("ERRO: argumento inválido.\n");
+                printf("ERROR: invalid argument.\n");
                 exit(1);
         }
     }
@@ -61,7 +66,7 @@ bool io_isValidStr(char *str)
 	int p = 0;
 	while(str[p] != '\0')
 	{
-        /* only a-z, dot and underscore */;
+        /* only A-Z, a-z, dot and underscore */;
 		if(!( ((str[p] >= 65) && (str[p] <= 122)) || (str[p] == 46) || (str[p] == 95)))
 			return false;
 		p++;

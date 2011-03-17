@@ -6,13 +6,13 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+#define STRING_SIZE 100
+#define LINE_SIZE 100000
+
 #ifndef WORDSET_H
 #define WORDSET_H
 #include "wordset.h"
 #endif
-
-#define STRING_SIZE 100
-#define LINE_SIZE 100000
 
 typedef struct Param
 {
@@ -21,6 +21,7 @@ typedef struct Param
 	     *fileOut,
 	     *classif,
          *sep;
+    bool rank;
 }Param;
 
 typedef struct Arff

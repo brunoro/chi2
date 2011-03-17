@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-#ifndef IO_H
-#define IO_H
-#include "io.h"
+#ifndef CHI2_H
+#define CHI2_H
+#include "chi2.h"
 #endif
 
 int main(int argc, char **argv)
@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 
     /* escolhe features usando seleção própria ou ranking externo */
     Wordset *feat;
-    feat = wordset_featureSelection(data->docs, data->docs_size, data->feats, para->nfeat);
+    feat = chi2_featureSelection(para, data);
 	
 	/* escreve as feats selecionadas */
 	io_fprintFeats(para->fileOut, data->str, feat);
